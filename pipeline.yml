@@ -7,8 +7,7 @@ jobs:
 
   - task: create-update
     file: pipeline-tasks/terraform-apply.yml
-    input_mapping:
-      - terraform-templates: terraform-example
+    input_mapping: { terraform-templates: terraform-example }
     params:
       STACK_NAME: example
       S3_TFSTATE_BUCKET: {{aws_s3_tfstate_bucket}}
@@ -23,8 +22,7 @@ jobs:
     - get: terraform-example
   - task: destroy
     file: pipeline-tasks/terraform-destroy.yml
-    input_mapping:
-      - terraform-templates: terraform-example
+    input_mapping: { terraform-templates: terraform-example }
     params:
       STACK_NAME: example
       S3_TFSTATE_BUCKET: {{aws_s3_tfstate_bucket}}
