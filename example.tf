@@ -19,7 +19,7 @@ resource "aws_vpc" "example_vpc" {
 
 # Create an S3 bucket to store things
 resource "aws_s3_bucket" "example_bucket" {
-    bucket = "example_bucket"
+    bucket = "example-bucket"
     acl = "private"
 
     tags {
