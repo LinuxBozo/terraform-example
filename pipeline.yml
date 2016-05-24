@@ -9,11 +9,18 @@ jobs:
     file: pipeline-tasks/terraform-apply.yml
     input_mapping: { terraform-templates: terraform-example }
     params:
-      STACK_NAME: example
+      STACK_NAME: cloudgov
+      TEMPLATE_SUBDIR: terraform/stacks/cloud-gov
       S3_TFSTATE_BUCKET: {{aws_s3_tfstate_bucket}}
       AWS_ACCESS_KEY_ID: {{aws_access_key_id}}
       AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
       AWS_DEFAULT_REGION: {{aws_default_region}}
+      TF_VAR_account_id: {{aws_account_id}}
+      TF_VAR_tooling_rds_password: {{tooling_rds_password}}
+      TF_VAR_prod_rds_password: {{prod_rds_password}}
+      TF_VAR_staging_rds_password: {{staging_rds_password}}
+      TF_VAR_concourse_prod_rds_password: {{concourse_prod_rds_password}}
+      TF_VAR_concourse_staging_rds_password: {{concourse_staging_rds_password}}
 
 - name: teardown
   plan:
@@ -24,11 +31,18 @@ jobs:
     file: pipeline-tasks/terraform-destroy.yml
     input_mapping: { terraform-templates: terraform-example }
     params:
-      STACK_NAME: example
+      STACK_NAME: cloudgov
+      TEMPLATE_SUBDIR: terraform/stacks/cloud-gov
       S3_TFSTATE_BUCKET: {{aws_s3_tfstate_bucket}}
       AWS_ACCESS_KEY_ID: {{aws_access_key_id}}
       AWS_SECRET_ACCESS_KEY: {{aws_secret_access_key}}
       AWS_DEFAULT_REGION: {{aws_default_region}}
+      TF_VAR_account_id: {{aws_account_id}}
+      TF_VAR_tooling_rds_password: {{tooling_rds_password}}
+      TF_VAR_prod_rds_password: {{prod_rds_password}}
+      TF_VAR_staging_rds_password: {{staging_rds_password}}
+      TF_VAR_concourse_prod_rds_password: {{concourse_prod_rds_password}}
+      TF_VAR_concourse_staging_rds_password: {{concourse_staging_rds_password}}
 
 resources:
 - name: pipeline-tasks
@@ -40,5 +54,5 @@ resources:
 - name: terraform-example
   type: git
   source:
-    uri: https://github.com/LinuxBozo/terraform-example.git
-    branch: master
+    uri: https://github.com/18F/cg-provision.git
+    branch: modules
